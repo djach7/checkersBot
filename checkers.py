@@ -3,47 +3,76 @@ from typing import List, Dict
 
 ROW_COUNT = 8 # num of rows on checkers board
 COL_COUNT = 8 # num of columns on checkers board
-EMPTY = "*" # represent empty board spaces
-board_piece = {EMPTY: ':white_medium_square: ', 'R': ':red_circle: ',
-               'Y': ':yellow_circle: '}
+UNUSED = '*' # represent empty board spaces
+R = ':red_circle: '
+Y = ':yellow_circle: '
+board_piece = {UNUSED: ':white_medium_square: ', R: ':red_circle: ',
+               Y: ':yellow_circle: '}
 
 class Board:
     # board for checkers game
-    _board: List[List[str]]
+    #_board: List[List[str]]
+    _board: List[int]
+    _printedBoard = str
+
+    # def __init__(self) -> None:
+    #     key = 1
+    #     arr = [[EMPTY * 8] for _ in range(8)]
+    #     # iterate through adding numbered spaces
+    #     for y in range(8):
+    #         current = ''
+    #         for x in range(0, 8, 2):
+    #             str_key = str(key)
+    #             if key < 10:
+    #                 str_key = ' ' + str_key
+
+    #             # if row is even
+    #             if (y % 2) == 0:
+    #                 current = current + EMPTY + ' ' + str_key + ' '
+    #             else:
+    #                 current = current + ' ' + str_key + ' ' + EMPTY
+
+    #             current = current.rjust(2)
+
+    #             key += 1
+    #         arr[y][0] = current
+
+    #     self._board = arr
+
+    # def print_board(self) -> str:
+    #     msg = ''
+    #     for row in self._board:
+    #         row = (''.join(row))
+    #         for item in row:
+    #             try:
+    #                 msg += board_piece[item]
+    #             except KeyError:
+    #                 msg += item
+    #         msg += '\n'
+    #     return msg
 
     def __init__(self) -> None:
-        key = 1
-        arr = [[EMPTY * 8] for _ in range(8)]
-        # iterate through adding numbered spaces
-        for y in range(8):
-            current = ''
-            for x in range(0, 8, 2):
-                str_key = str(key)
-                if key < 10:
-                    str_key = ' ' + str_key
-
-                # if row is even
-                if (y % 2) == 0:
-                    current = current + EMPTY + ' ' + str_key + ' '
-                else:
-                    current = current + ' ' + str_key + ' ' + EMPTY
-
-                current = current.rjust(2)
-
-                key += 1
-            arr[y][0] = current
+        arr = []
+        for x in range(33):
+            if x < 12:
+                arr.append(Y)
+            elif 12 < x < 21:
+                arr.append(str(x))
+            elif x > 20:
+                arr.append(R)
 
         self._board = arr
 
+
     def print_board(self) -> str:
-        msg = ''
-        for row in self._board:
-            row = (''.join(row))
-            for item in row:
-                try:
-                    msg += board_piece[item]
-                except KeyError:
-                    msg += item
-            msg += '\n'
-        return msg
-    
+        p_board = self._board
+        print(p_board)
+        for x in range(0,len(p_board)):
+            p_board.insert(x*2, board_piece[UNUSED])
+
+        p_board_str = ''
+        p_board_str = (' '.join(p_board[0:8])) + '\n' + (' '.join(p_board[8:16])) + '\n' + (' '.join(p_board[16:24])) + '\n' + (' '.join(p_board[24:32])) + '\n' + (' '.join(p_board[32:40])) + '\n' + (' '.join(p_board[40:48])) + '\n' + (' '.join(p_board[48:56])) + '\n' + (' '.join(p_board[56:64]))
+
+        print(p_board)
+        self._printedBoard = p_board_str
+        return p_board_str
