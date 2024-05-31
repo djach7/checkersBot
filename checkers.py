@@ -5,10 +5,13 @@ ROW_COUNT = 8 # num of rows on checkers board
 COL_COUNT = 8 # num of columns on checkers board
 UNUSED = 'x' # represent empty board spaces
 RED = 'r'
+REDKING = 'rk'
 YELLOW = 'y'
+YELLOWKING = 'yk'
 EMPTY = '*'
-board_piece = {UNUSED: ':white_medium_square: ', RED: ':red_circle: ',
-               YELLOW: ':yellow_circle: ', EMPTY: ':black_medium_square: '}
+board_piece = {UNUSED: ':white_medium_square: ', RED: ':red_circle: ', 
+               REDKING: ':heart:', YELLOW: ':yellow_circle: ', 
+               YELLOWKING: ':yellow_heart:', EMPTY: ':black_medium_square: '}
 
 class Board:
     # board for checkers game
@@ -69,7 +72,11 @@ class Board:
         m_board = self._board
         # set prior location to empty space
         m_board[r][c] = EMPTY
-        m_board[r2][c2] = RED
+
+        if r2 == 0:
+            m_board[r2][c2] = REDKING
+        else:
+            m_board[r2][c2] = RED
 
         print("in red move")
 
@@ -79,7 +86,11 @@ class Board:
         m_board = self._board
         # set prior location to empty space
         m_board[r][c] = EMPTY
-        m_board[r2][c2] = YELLOW
+
+        if r2 == 7:
+            m_board[r2][c2] = YELLOWKING
+        else:
+            m_board[r2][c2] = YELLOW
 
         print("in yellow move")
 
@@ -101,7 +112,10 @@ class Board:
         else:
             c3 = c2 - 1
         
-        m_board[r3][c3] = RED
+        if r3 == 0:
+            m_board[r3][c3] = REDKING
+        else:
+            m_board[r3][c3] = RED
 
         print("in red jump")
 
@@ -123,11 +137,17 @@ class Board:
         else:
             c3 = c2 - 1
         
-        m_board[r3][c3] = YELLOW
+        if r3 == 7:
+            m_board[r3][c3] = YELLOWKING
+        else:
+            m_board[r3][c3] = YELLOW
 
         print("in yellow jump")
 
         self._board = m_board
+
+
+
 
     def cur_piece(self, r: int, c: int) -> str:
         cur_board = self._board
